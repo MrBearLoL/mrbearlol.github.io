@@ -1,11 +1,9 @@
-// script.js – 3D Minecraft skin viewer
-// This file assumes the project is served via a local HTTP server (e.g., `python -m http.server 8000`).
-// The skin image `medveskinSUMMER.png` lives in the project root, so it can be loaded with a relative URL.
-
+// script.js – 3D Minecraft skin viewer with fight animation
 document.addEventListener('DOMContentLoaded', () => {
     const skinContainer = document.getElementById('skin_container');
     const rotateBtn = document.getElementById('rotate_btn');
     const walkBtn = document.getElementById('walk_btn');
+    const fightBtn = document.getElementById('fight_btn');
 
     // ---------------------------------------------------------------------
     // Initialise the SkinViewer
@@ -37,6 +35,43 @@ document.addEventListener('DOMContentLoaded', () => {
     skinViewer.controls.enableDamping = true;
     skinViewer.controls.dampingFactor = 0.01; // long spin after release
     skinViewer.controls.rotateSpeed = 0.8;   // slower initial acceleration
+
+    // ---------------------------------------------------------------------
+    // Custom Fight Animation
+    // ---------------------------------------------------------------------
+    class FightAnimation {
+        constructor() {
+            this.time = 0;
+            this.swingSpeed = 8; // Speed of the swing
+            this.randomOffset = Math.random() * Math.PI * 2; // Random starting point
+        }
+
+        animate(player, time) {
+            this.time += time * this.swingSpeed;
+
+            // Random variation in swing pattern
+            const variation = Math.sin(this.randomOffset + this.time * 0.3) * 0.3;
+
+            // Right arm swinging (attacking motion)
+            player.skin.rightArm.rotation.x = Math.sin(this.time) * 2.5 + variation;
+            player.skin.rightArm.rotation.z = Math.cos(this.time * 0.5) * 0.3;
+
+            // Left arm counter-movement
+            player.skin.leftArm.rotation.x = -Math.sin(this.time * 0.8) * 0.8;
+            player.skin.leftArm.rotation.z = Math.sin(this.time * 0.4) * 0.2;
+
+            // Body rotation for more dynamic movement
+            player.skin.body.rotation.y = Math.sin(this.time * 0.5) * 0.15;
+
+            // Slight head movement
+            player.skin.head.rotation.x = Math.sin(this.time * 0.6) * 0.1;
+            player.skin.head.rotation.y = Math.cos(this.time * 0.4) * 0.2;
+
+            // Legs for stability
+            player.skin.rightLeg.rotation.x = Math.sin(this.time * 0.7) * 0.3;
+            player.skin.leftLeg.rotation.x = -Math.sin(this.time * 0.7) * 0.3;
+        }
+    }
 
     // ---------------------------------------------------------------------
     // Animation loop – required for damping to work
@@ -81,9 +116,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isWalking) {
             skinViewer.animation = new skinview3d.WalkingAnimation();
             walkBtn.classList.add('active');
+            fightBtn.classList.remove('active');
         } else {
             skinViewer.animation = null;
             walkBtn.classList.remove('active');
+        }
+    });
+
+    // ---------------------------------------------------------------------
+    // Fight animation toggle
+    // ---------------------------------------------------------------------
+    let isFighting = false;
+    fightBtn.addEventListener('click', () => {
+        isFighting = !isFighting;
+        if (isFighting) {
+            skinViewer.animation = new FightAnimation();
+            fightBtn.classList.add('active');
+            walkBtn.classList.remove('active');
+        } else {
+            skinViewer.animation = null;
+            fightBtn.classList.remove('active');
         }
     });
 });
