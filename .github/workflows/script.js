@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.randomOffset = Math.random() * Math.PI * 2; // Random starting point
         }
 
-        animate(player, time) {
+        update(player, time) {
             this.time += time * this.swingSpeed;
 
             // Random variation in swing pattern
