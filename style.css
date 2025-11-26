@@ -1,6 +1,6 @@
 :root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
+    --bg-color: #000000;
+    --card-bg: #1a1a1a;
     --primary-color: #3b82f6;
     --primary-hover: #2563eb;
     --text-color: #f8fafc;
@@ -55,7 +55,7 @@ header h1 {
     font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 0.2rem;
-    background: linear-gradient(135deg, #60a5fa, #a855f7);
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -67,6 +67,10 @@ header p {
     font-size: 1.2rem;
     font-weight: 300;
     letter-spacing: 1px;
+}
+
+.spacer {
+    height: 1.5rem;
 }
 
 .social-buttons {
@@ -105,37 +109,36 @@ header p {
 }
 
 .controls {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
-.options {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.icon-btn {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    padding: 1rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
+.control-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.icon-btn:hover {
+.control-btn:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
+    transform: translateY(-2px);
 }
 
-.icon-btn.active {
+.control-btn.active {
     background-color: var(--primary-color);
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     border-color: var(--primary-color);
 }
 
@@ -146,15 +149,13 @@ header p {
 .viewer-container {
     width: 100%;
     height: 500px;
-    background: radial-gradient(circle at center, #334155 0%, #0f172a 100%);
+    background: transparent;
     border-radius: var(--border-radius);
     overflow: hidden;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 canvas {
@@ -166,14 +167,6 @@ canvas {
 
 canvas:active {
     cursor: grabbing;
-}
-
-footer {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    opacity: 0.7;
-    margin-top: auto;
 }
 
 @keyframes fadeInDown {
@@ -217,5 +210,10 @@ footer {
 
     .viewer-container {
         height: 400px;
+    }
+
+    .controls {
+        width: 100%;
+        max-width: 400px;
     }
 }
