@@ -57,7 +57,7 @@ body::before {
 
 .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -70,7 +70,7 @@ body::before {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 2rem;
-    align-items: center;
+    align-items: start;
 }
 
 .left-panel {
@@ -141,6 +141,69 @@ header p {
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
 }
 
+.latest-video {
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.latest-video h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.viewer-container {
+    width: 100%;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    outline: none;
+    cursor: grab;
+}
+
+canvas:active {
+    cursor: grabbing;
+}
+
 .controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -173,33 +236,6 @@ header p {
     background-color: var(--primary-color);
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     border-color: var(--primary-color);
-}
-
-.right-panel {
-    animation: fadeInUp 0.8s ease-out 0.2s backwards;
-}
-
-.viewer-container {
-    width: 100%;
-    height: 500px;
-    background: transparent;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-    outline: none;
-    cursor: grab;
-}
-
-canvas:active {
-    cursor: grabbing;
 }
 
 @keyframes fadeInDown {
@@ -237,6 +273,11 @@ canvas:active {
     }
 
     .social-buttons {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .latest-video {
         width: 100%;
         max-width: 400px;
     }

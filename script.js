@@ -1,5 +1,16 @@
 // script.js – 3D Minecraft skin viewer
 document.addEventListener('DOMContentLoaded', () => {
+    // YouTube videó betöltése
+    // FONTOS: Cseréld ki a 'VIDEO_ID_HERE' részt a legújabb Bear videó ID-jére!
+    // Példa: ha a videó URL-je https://www.youtube.com/watch?v=dQw4w9WgXcQ
+    // akkor a VIDEO_ID = 'dQw4w9WgXcQ'
+    const latestVideoId = 'uhAa_tPvx0A'; // <-- ITT ÁLLÍTSD BE A VIDEÓ ID-T!
+    const youtubePlayer = document.getElementById('youtube-player');
+    if (youtubePlayer && latestVideoId !== 'VIDEO_ID_HERE') {
+        const origin = window.location.origin;
+        youtubePlayer.src = `https://www.youtube.com/embed/${latestVideoId}?enablejsapi=1&origin=${origin}&rel=0`;
+    }
+
     const skinContainer = document.getElementById('skin_container');
     const rotateBtn = document.getElementById('rotate_btn');
     const walkBtn = document.getElementById('walk_btn');
