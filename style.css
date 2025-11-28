@@ -127,6 +127,10 @@ header p {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+.social-btn svg {
+    overflow: visible;
+}
+
 .social-btn:hover {
     transform: translateX(5px);
 }
@@ -139,6 +143,36 @@ header p {
 .social-btn.youtube:hover {
     background-color: var(--youtube-color);
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+}
+
+.social-btn.discord:hover {
+    background-color: #5865F2;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+}
+
+.custom-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.1s ease-out;
+    background-color: transparent;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    transform: translate(0, 0);
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)) drop-shadow(2px 2px 0px #000000);
+}
+
+.custom-tooltip div {
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .latest-video {

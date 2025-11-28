@@ -73,9 +73,67 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isWalking) {
             skinViewer.animation = new skinview3d.WalkingAnimation();
             walkBtn.classList.add('active');
-        } else {
-            skinViewer.animation = null;
             walkBtn.classList.remove('active');
         }
     });
+
+    // Tooltip kezelés
+    const tooltip = document.getElementById('custom-tooltip');
+    const tooltipLine1 = document.getElementById('tooltip-line1');
+    const tooltipLine2 = document.getElementById('tooltip-line2');
+
+    const buttons = [
+        {
+            id: 'youtube-btn',
+            line1: 'Fő csatornám',
+            line2: 'leginkább Minecraft'
+        },
+        {
+            id: 'instagram-btn',
+            line1: 'Itt néha aktív néha inaktív vagyok',
+            line2: ''
+        },
+        {
+            id: 'bear-discord-btn',
+            line1: 'Ide kirakok néha infókat,',
+            line2: 'és néha eventeket is'
+        },
+        {
+            id: 'community-discord-btn',
+            line1: 'Itt tudtok chatelni,',
+            line2: 'haverokkal közös szerver'
+        },
+        {
+            id: 'kabbe-btn',
+            line1: 'Facecam-es, reakciós, commentary',
+            line2: 'videók, Kattossal'
+        },
+        {
+            id: 'spirit-gang-btn',
+            line1: 'Legkomolyabb haveri körünk',
+            line2: 'mindenféle közös videója'
+        }
+    ];
+
+    if (tooltip && tooltipLine1 && tooltipLine2) {
+        buttons.forEach(btnData => {
+            const btn = document.getElementById(btnData.id);
+            if (btn) {
+                btn.addEventListener('mouseenter', () => {
+                    tooltipLine1.textContent = btnData.line1;
+                    tooltipLine2.textContent = btnData.line2;
+                    tooltipLine2.style.display = btnData.line2 ? 'block' : 'none';
+                    tooltip.style.opacity = '1';
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = '0';
+                });
+
+                btn.addEventListener('mousemove', (e) => {
+                    tooltip.style.transform = `translate(${e.clientX + 15}px, ${e.clientY + 15}px)`;
+                });
+            }
+        });
+    }
 });
