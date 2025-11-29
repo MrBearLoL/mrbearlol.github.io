@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentSkinIndex = 4; // medveskinSUMMER.png az 5. a listában (index 4)
-    const originalSkin = 'medveskinSUMMER.png';
+    const originalSkin = 'src/skinek/medveskinSUMMER.png';
 
     // Initialise the SkinViewer
     const skinViewer = new skinview3d.SkinViewer({
         canvas: skinContainer,
         width: 400,
         height: 400,
-        skin: "medveskinSUMMER.png"
+        skin: "src/skinek/medveskinSUMMER.png"
     });
 
     // Adjust size to the container (responsive)
