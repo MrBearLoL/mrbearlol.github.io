@@ -59,13 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
         skinViewer.cameraLight.shadow.bias = -0.001;
     }
 
-    // Smooth rotation (damping) - teljes forgatás engedélyezése
+    // Smooth rotation (damping)
     skinViewer.controls.enableDamping = true;
     skinViewer.controls.dampingFactor = 0.01;
     skinViewer.controls.rotateSpeed = 0.8;
-    // Teljes forgatás minden irányban - nincs korlátozás
-    skinViewer.controls.minPolarAngle = -Infinity;
-    skinViewer.controls.maxPolarAngle = Infinity;
 
     // Animation loop for damping
     const animate = () => {
