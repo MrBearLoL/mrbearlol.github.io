@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     skinViewer.controls.enableDamping = true;
     skinViewer.controls.dampingFactor = 0.01;
     skinViewer.controls.rotateSpeed = 0.8;
-    // Teljes forgatás minden irányban
-    skinViewer.controls.minPolarAngle = 0;
-    skinViewer.controls.maxPolarAngle = Math.PI;
+    // Teljes forgatás minden irányban - nincs korlátozás
+    skinViewer.controls.minPolarAngle = -Infinity;
+    skinViewer.controls.maxPolarAngle = Infinity;
 
     // Animation loop for damping
     const animate = () => {
