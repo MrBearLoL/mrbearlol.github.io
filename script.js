@@ -64,6 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
     skinViewer.controls.dampingFactor = 0.01;
     skinViewer.controls.rotateSpeed = 0.8;
 
+    // Remove ALL rotation limits for full 360° rotation
+    skinViewer.controls.minPolarAngle = 0;
+    skinViewer.controls.maxPolarAngle = Math.PI;  // This is the maximum Three.js allows by default
+
+    // Try to enable more rotation by removing azimuth limits too
+    skinViewer.controls.minAzimuthAngle = -Infinity;
+    skinViewer.controls.maxAzimuthAngle = Infinity;
+
     // Animation loop for damping
     const animate = () => {
         skinViewer.controls.update();
