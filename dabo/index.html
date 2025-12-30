@@ -1055,21 +1055,46 @@
     <audio id="bgMusic2" src="zene2.mp3" preload="auto"></audio>
 
     <script>
+        // Global variables for audio and slot UI elements
+        let bgMusic, bgMusic2, spinSound, winSound, volumeSlider;
+        let scamOverlay, hekasOverlay, claimBtn, refuseBtn, virusContainer;
+        let spinBtn, reelStrips, winOverlay;
+        let images = ['1.png', '2.gif', '3.png', '4.png'];
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize global variables
+            bgMusic = document.getElementById('bgMusic');
+            bgMusic2 = document.getElementById('bgMusic2');
+            spinSound = document.getElementById('spinSound');
+            winSound = document.getElementById('winSound');
+            volumeSlider = document.getElementById('volumeSlider');
+            scamOverlay = document.getElementById('scamOverlay');
+            hekasOverlay = document.getElementById('hekasOverlay');
+            claimBtn = document.getElementById('claimBtn');
+            refuseBtn = document.getElementById('refuseBtn');
+            virusContainer = document.getElementById('virus-container');
+
+            spinBtn = document.getElementById('spinBtn');
+            winOverlay = document.getElementById('winOverlay');
+            reelStrips = [
+                document.querySelector('#reel1 .reel-strip'),
+                document.querySelector('#reel2 .reel-strip'),
+                document.querySelector('#reel3 .reel-strip')
+            ];
+
             // Video autoplay logic
             const video = document.getElementById('radicsVideo');
-            video.volume = 1.0;
-            video.play().catch(error => {
-                console.log("Az automatikus lejátszás hanggal nem sikerült:", error);
-            });
+            if (video) {
+                video.volume = 1.0;
+                video.play().catch(error => {
+                    console.log("Az automatikus lejátszás hanggal nem sikerült:", error);
+                });
+            }
 
             // Initial volume setup
-            const bgMusic = document.getElementById('bgMusic');
-            const bgMusic2 = document.getElementById('bgMusic2');
             if (bgMusic) bgMusic.volume = 0.4;
             if (bgMusic2) bgMusic2.volume = 0.4;
 
-            const volumeSlider = document.getElementById('volumeSlider');
             if (volumeSlider) {
                 volumeSlider.addEventListener('input', (e) => {
                     const vol = e.target.value;
@@ -1078,42 +1103,22 @@
                 });
             }
 
-
-            // Slot Machine Logic
-            const images = ['1.png', '2.gif', '3.png', '4.png'];
-            const reelStrips = [
-                document.querySelector('#reel1 .reel-strip'),
-                document.querySelector('#reel2 .reel-strip'),
-                document.querySelector('#reel3 .reel-strip')
-            ];
-            const spinBtn = document.getElementById('spinBtn');
-            const winOverlay = document.getElementById('winOverlay');
-            const spinSound = document.getElementById('spinSound');
-            const winSound = document.getElementById('winSound');
-
-            // New Elements
-            const scamOverlay = document.getElementById('scamOverlay');
-            const hekasOverlay = document.getElementById('hekasOverlay');
-            const claimBtn = document.getElementById('claimBtn');
-            const refuseBtn = document.getElementById('refuseBtn');
-            const virusContainer = document.getElementById('virus-container');
-
-
-
             const iconHeight = 80;
             const numIcons = images.length;
             const loops = 12;
 
             // Initialize Reels
-            reelStrips.forEach(strip => {
-                let html = '';
-                for (let i = 0; i < loops; i++) {
-                    images.forEach(img => {
-                        html += `<img src="${img}" alt="icon">`;
-                    });
-                }
-                strip.innerHTML = html;
-            });
+            if (reelStrips[0]) {
+                reelStrips.forEach(strip => {
+                    let html = '';
+                    for (let i = 0; i < loops; i++) {
+                        images.forEach(img => {
+                            html += `<img src="${img}" alt="icon">`;
+                        });
+                    }
+                    strip.innerHTML = html;
+                });
+            }
 
             let isSpinning = false;
             let spinTimeout;
@@ -1299,7 +1304,7 @@
             };
 
             // Meme System State
-            let memeTimers = { alt23: 0, m5: 0, m6: 0, m1: 0 };
+            let memeTimers = { alt23: 0, m5: 0, m6: 0, m1: 0, m4: 0, m7: 0 };
             let altMemeToggle = false;
             let bossMemeTriggered = false;
 
@@ -1428,7 +1433,7 @@
                 isMouseDown = false;
 
                 // Reset Memes
-                memeTimers = { alt23: 0, m5: 0, m6: 0, m1: 0 };
+                memeTimers = { alt23: 0, m5: 0, m6: 0, m1: 0, m4: 0, m7: 0 };
                 altMemeToggle = false;
                 bossMemeTriggered = false;
                 document.getElementById('memeLayerBehind').innerHTML = '';
@@ -1935,6 +1940,8 @@
                     memeTimers.m5 += deltaTime;
                     memeTimers.m6 += deltaTime;
                     memeTimers.m1 += deltaTime;
+                    memeTimers.m4 += deltaTime;
+                    memeTimers.m7 += deltaTime;
 
                     if (memeTimers.alt23 > 20000) {
                         memeTimers.alt23 = 0;
@@ -1953,6 +1960,14 @@
                         memeTimers.m1 = 0;
                         showMeme('meme1.gif', 'memeLayerAbove', 3000, 'meme-side meme-left chroma-key-green');
                         showMeme('meme1.gif', 'memeLayerAbove', 3000, 'meme-side meme-right chroma-key-green');
+                    }
+                    if (memeTimers.m4 > 15000) {
+                        memeTimers.m4 = 0;
+                        showMeme('meme_4.gif', 'memeLayerAbove', 4000, 'meme-full chroma-key-green');
+                    }
+                    if (memeTimers.m7 > 25000) {
+                        memeTimers.m7 = 0;
+                        showMeme('meme_7.gif', 'memeLayerBehind', 5000, 'meme-full chroma-key-green');
                     }
 
                     if (bossActive && !bossMemeTriggered) {
