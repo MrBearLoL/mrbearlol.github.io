@@ -920,8 +920,9 @@
         <div class="main-content">
             <!-- Video Section -->
             <div class="video-container">
-                <video id="radicsVideo" autoplay loop playsinline controls>
-                    <source src="/dabo/radics.mp4" type="video/mp4">
+                <video id="radicsVideo" autoplay loop playsinline controls
+                    onerror="console.error('Video error:', this.src)">
+                    <source src="./radics.mp4" type="video/mp4">
                     A böngésződ nem támogatja a videó lejátszását.
                 </video>
             </div>
@@ -982,7 +983,7 @@
 
     <!-- Hekas Overlay -->
     <div class="hekas-overlay" id="hekasOverlay">
-        <img src="/dabo/hekas.gif" alt="HEKAS">
+        <img src="./hekas.gif" alt="HEKAS" onerror="console.error('Hekas load failed')">
     </div>
 
     <!-- Game Overlay -->
@@ -991,7 +992,8 @@
         <div id="gameBackground"></div>
         <div id="memeLayerAbove"></div>
         <canvas id="gameCanvas"></canvas>
-        <img id="wasdTutorial" src="/dabo/wasd.png" class="wasd-tutorial" alt="WASD Control Tutorial">
+        <img id="wasdTutorial" src="./wasd.png" class="wasd-tutorial" alt="WASD Control Tutorial"
+            onerror="console.error('WASD tutorial load failed')">
         <div class="game-score">Pénz: <span id="scoreDisplay" style="cursor: pointer; text-decoration: underline;"
                 onclick="cheatScore()" title="Kattints a csaláshoz!">0</span></div>
 
@@ -1049,13 +1051,12 @@
     </div>
 
     <!-- Sounds -->
-    <!-- spin.mp3 and win.mp3 are missing from assets, commenting out to avoid 404s -->
-    <!-- <audio id="spinSound" src="/dabo/spin.mp3" preload="auto"></audio> -->
-    <!-- <audio id="winSound" src="/dabo/win.mp3" preload="auto"></audio> -->
-    <audio id="bgMusic" src="/dabo/zene.mp3" preload="auto" loop></audio>
-    <audio id="bgMusic2" src="/dabo/zene2.mp3" preload="auto"></audio>
+    <audio id="bgMusic" src="./zene.mp3" preload="auto" loop
+        onerror="console.error('zene.mp3 load failed', this.src)"></audio>
+    <audio id="bgMusic2" src="./zene2.mp3" preload="auto"
+        onerror="console.error('zene2.mp3 load failed', this.src)"></audio>
 
-    <link rel="preload" as="image" href="/dabo/meme_fekete.gif">
+    <link rel="preload" as="image" href="./meme_fekete.gif">
 
     <script>
         // Redirect to add trailing slash if missing (fixes relative paths on GitHub Pages)
@@ -1067,7 +1068,7 @@
         let bgMusic, bgMusic2, spinSound, winSound, volumeSlider;
         let scamOverlay, hekasOverlay, claimBtn, refuseBtn, virusContainer;
         let spinBtn, reelStrips, winOverlay;
-        let images = ['/dabo/1.png', '/dabo/2.gif', '/dabo/3.png', '/dabo/4.png'];
+        let images = ['./1.png', './2.gif', './3.png', './4.png'];
 
         function initAudio() {
             // Browsers often need a user gesture to resume the AudioContext or play.
@@ -1338,7 +1339,8 @@
                 if (!layer) return;
 
                 const img = document.createElement('img');
-                img.src = '/dabo/' + src; // Root-relative path for stability on GitHub Pages
+                img.src = './' + src; // Explicit relative path
+                img.onerror = () => console.error('Meme load failed:', img.src);
                 img.className = 'meme-gif ' + className;
                 img.style.display = 'block';
                 layer.appendChild(img);
@@ -2021,7 +2023,8 @@
                         if (e.isFekete) {
                             if (!e.dom) {
                                 e.dom = document.createElement('img');
-                                e.dom.src = '/dabo/meme_fekete.gif';
+                                e.dom.src = './meme_fekete.gif';
+                                e.dom.onerror = () => console.error('meme_fekete.gif load failed');
                                 e.dom.className = 'meme-gif chroma-key-black';
                                 e.dom.style.width = e.width + 'px';
                                 e.dom.style.height = e.height + 'px';
